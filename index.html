@@ -1244,13 +1244,13 @@
     // Pricing cards
     const pricingGrid = document.getElementById('pricingGrid');
     const pricingData = [
-        { city: 'Ljubljana', country: 'Slovenia', flag: '🇸🇮', flight: '£45–90', hotel: '£50–80/nt', total: '£200–320', food: '£30–50', search: 'https://www.skyscanner.net/transport/flights/lcy/lju/250416/250422/' },
-        { city: 'Sarajevo', country: 'Bosnia & Herzegovina', flag: '🇧🇦', flight: '£50–100', hotel: '£30–50/nt', total: '£120–200', food: '£20–35', search: 'https://www.skyscanner.net/transport/flights/lcy/sjj/250416/250422/' },
-        { city: 'Lisbon', country: 'Portugal', flag: '🇵🇹', flight: '£35–80', hotel: '£50–90/nt', total: '£200–350', food: '£35–60', search: 'https://www.skyscanner.net/transport/flights/lcy/lis/250416/250422/' },
-        { city: 'Naples', country: 'Italy', flag: '🇮🇹', flight: '£50–100', hotel: '£65–100/nt', total: '£250–400', food: '£30–55', search: 'https://www.skyscanner.net/transport/flights/lcy/nap/250416/250422/' },
-        { city: 'Lyon', country: 'France', flag: '🇫🇷', flight: '£70–120', hotel: '£70–100/nt', total: '£280–400', food: '£45–75', search: 'https://www.skyscanner.net/transport/flights/lcy/lys/250416/250422/' },
-        { city: 'Athens', country: 'Greece', flag: '🇬🇷', flight: '£50–100', hotel: '£50–90/nt', total: '£200–350', food: '£30–55', search: 'https://www.skyscanner.net/transport/flights/lcy/ath/250416/250422/' },
-        { city: 'Porto', country: 'Portugal', flag: '🇵🇹', flight: '£40–80', hotel: '£45–75/nt', total: '£180–300', food: '£30–50', search: 'https://www.skyscanner.net/transport/flights/lcy/opo/250416/250422/' },
+        { city: 'Ljubljana', country: 'Slovenia', flag: '🇸🇮', flight: '~£100', hotelNight: '£120–180', hotelTotal: '£480–720', food: '£30–50', total: '£610–870', search: 'https://www.skyscanner.net/transport/flights/lcy/lju/250417/250422/', hotelSearch: 'https://www.booking.com/region/si/ljubljana.html' },
+        { city: 'Sarajevo', country: 'Bosnia & Herzegovina', flag: '🇧🇦', flight: '~£60', hotelNight: '£50–100', hotelTotal: '£200–400', food: '£20–35', total: '£280–495', search: 'https://www.skyscanner.net/transport/flights/lcy/sjj/250417/250422/', hotelSearch: 'https://www.booking.com/region/ba/sarajevo.html' },
+        { city: 'Lisbon', country: 'Portugal', flag: '🇵🇹', flight: '~£110', hotelNight: '£130–270', hotelTotal: '£520–1080', food: '£35–60', total: '£670–1250', search: 'https://www.skyscanner.net/transport/flights/lcy/lis/250417/250422/', hotelSearch: 'https://www.booking.com/region/pt/lisbon.html' },
+        { city: 'Naples', country: 'Italy', flag: '🇮🇹', flight: '~£65', hotelNight: '£110–190', hotelTotal: '£440–760', food: '£30–55', total: '£535–880', search: 'https://www.skyscanner.net/transport/flights/lcy/nap/250417/250422/', hotelSearch: 'https://www.booking.com/region/it/naples.html' },
+        { city: 'Lyon', country: 'France', flag: '🇫🇷', flight: '~£60', hotelNight: '£100–150', hotelTotal: '£400–600', food: '£45–75', total: '£505–735', search: 'https://www.skyscanner.net/transport/flights/lcy/lys/250417/250422/', hotelSearch: 'https://www.booking.com/region/fr/lyon.html' },
+        { city: 'Athens', country: 'Greece', flag: '🇬🇷', flight: '~£95', hotelNight: '£90–130', hotelTotal: '£360–520', food: '£30–55', total: '£485–670', search: 'https://www.skyscanner.net/transport/flights/lcy/ath/250417/250422/', hotelSearch: 'https://www.booking.com/region/gr/athens.html' },
+        { city: 'Porto', country: 'Portugal', flag: '🇵🇹', flight: '~£75', hotelNight: '£55–150', hotelTotal: '£220–600', food: '£30–50', total: '£325–725', search: 'https://www.skyscanner.net/transport/flights/lcy/opo/250417/250422/', hotelSearch: 'https://www.booking.com/region/pt/porto.html' },
     ];
 
     pricingData.forEach(p => {
@@ -1269,18 +1269,23 @@
                 <span class="price-value">${p.flight}</span>
             </div>
             <div class="price-row">
-                <span class="price-label">🏨 4 nights hotel</span>
-                <span class="price-value">${p.total}</span>
+                <span class="price-label">🏨 Hotel/night</span>
+                <span class="price-value">${p.hotelNight}</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">🏨 4 nights total</span>
+                <span class="price-value">${p.hotelTotal}</span>
             </div>
             <div class="price-row">
                 <span class="price-label">🍽️ Daily food</span>
                 <span class="price-value">${p.food}</span>
             </div>
             <div class="price-row">
-                <span class="price-label">📊 Est. total PP</span>
-                <span class="price-value">${p.total.split('–')[0]}–${p.total.split('–')[1] ? p.total.split('–')[1] : p.total}</span>
+                <span class="price-label">📊 Total PP (est.)</span>
+                <span class="price-value">${p.total}</span>
             </div>
-            <a href="${p.search}" target="_blank" class="price-link">Search real prices →</a>
+            <a href="${p.search}" target="_blank" class="price-link">Search flights →</a>
+            <a href="${p.hotelSearch}" target="_blank" class="price-link" style="margin-top:0.5rem; background: var(--accent);">Search hotels →</a>
         `;
         pricingGrid.appendChild(card);
     });
