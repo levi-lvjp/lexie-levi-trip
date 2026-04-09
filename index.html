@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>European Getaway | A Travel Journal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Quicksand:wght@300;400;500;600&family=Homemade+Apple&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #faf7f2;
+            --paper: #f4ede4;
+            --paper-dark: #e6ddd0;
+            --ink: #2b2b2b;
+            --ink-light: #6b6b6b;
+            --ink-faint: #a8a8a0;
+            --accent: #b85c38;
+            --accent-warm: #d4956a;
+            --sage: #7d8c6e;
+            --rose: #b87878;
+            --sky: #7d9cb8;
+            --gold: #c4a35a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+        .cover {
+            max-width: 580px;
+            text-align: center;
+            position: relative;
+        }
+        .cover-frame {
+            position: absolute;
+            top: -24px; left: -40px; right: -40px; bottom: -24px;
+            border: 1.5px solid var(--ink);
+            border-radius: 6px;
+            opacity: 0.12;
+        }
+        .cover-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 0.5px solid var(--ink);
+            border-radius: 3px;
+            opacity: 0.4;
+        }
+        .cover-stamp {
+            display: inline-block;
+            font-family: 'Kalam', cursive;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            padding: 0.35rem 1.25rem;
+            border-radius: 24px;
+            margin-bottom: 2.5rem;
+            transform: rotate(-3deg);
+            opacity: 0;
+            animation: stampIn 0.5s 0.2s ease forwards;
+        }
+        @keyframes stampIn {
+            0% { opacity: 0; transform: rotate(-3deg) scale(1.4); }
+            100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+        }
+        .cover-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 11vw, 7.5rem);
+            font-weight: 300;
+            line-height: 0.95;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: coverIn 1s 0.35s ease forwards;
+        }
+        .cover-title em {
+            font-style: italic;
+            color: var(--accent);
+            display: block;
+            font-size: 0.8em;
+        }
+        @keyframes coverIn {
+            0% { opacity: 0; transform: translateY(24px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .cover-byline {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: coverIn 1s 0.5s ease forwards;
+        }
+        .cover-dates {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: coverIn 1s 0.65s ease forwards;
+        }
+        .cover-date { text-align: center; }
+        .cover-date-label {
+            font-size: 0.6rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 0.2rem;
+        }
+        .cover-date-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+        .cover-date-sep {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--ink-faint);
+            font-style: italic;
+        }
+        .cover-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--ink);
+            margin: 0 auto 2rem;
+            opacity: 0.2;
+            opacity: 0;
+            animation: coverIn 1s 0.75s ease forwards;
+        }
+        .cover-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            opacity: 0;
+            animation: coverIn 1s 0.85s ease forwards;
+        }
+        .cover-tag {
+            font-family: 'Kalam', cursive;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.9rem;
+            border: 1px solid var(--ink);
+            border-radius: 20px;
+            color: var(--ink);
+            opacity: 0.5;
+        }
+        .cover-scroll {
+            margin-top: 5rem;
+            opacity: 0;
+            animation: coverIn 1s 1.2s ease forwards;
+        }
+        .cover-scroll-text {
+            font-family: 'Kalam', cursive;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            margin-bottom: 0.5rem;
+        }
+        .cover-scroll-icon {
+            width: 22px; height: 22px;
+            margin: 0 auto;
+            animation: bobbing 2.5s 2s infinite ease-in-out;
+        }
+        @keyframes bobbing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(9px); }
+        }
+
+        /* SECTION HEADER */
+        .section-header {
+            text-align: center;
+            padding: 5rem 2rem 3rem;
+        }
+        .section-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .section-line {
+            width: 70px;
+            height: 0.5px;
+            background: var(--ink);
+            opacity: 0.15;
+        }
+        .section-icon { font-size: 1rem; opacity: 0.35; }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        .section-subtitle {
+            font-family: 'Kalam', cursive;
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-top: 0.5rem;
+        }
+
+        /* CITIES GRID */
+        .cities-section {
+            padding: 1rem 2rem 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .city-card {
+            background: var(--paper);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 3px 18px rgba(0,0,0,0.05);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+            opacity: 0;
+            animation: cardIn 0.7s ease forwards;
+        }
+        .city-card:nth-child(1) { animation-delay: 0.05s; }
+        .city-card:nth-child(2) { animation-delay: 0.10s; }
+        .city-card:nth-child(3) { animation-delay: 0.15s; }
+        .city-card:nth-child(4) { animation-delay: 0.20s; }
+        .city-card:nth-child(5) { animation-delay: 0.25s; }
+        .city-card:nth-child(6) { animation-delay: 0.30s; }
+        .city-card:nth-child(7) { animation-delay: 0.35s; }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(36px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .city-card:hover {
+            transform: translateY(-10px) rotate(0.6deg);
+            box-shadow: 0 24px 56px rgba(0,0,0,0.11);
+        }
+        .city-card-inner-border {
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 0.5px solid var(--ink);
+            border-radius: 10px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .city-image-wrap {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        .city-image {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .city-card:hover .city-image { transform: scale(1.1); }
+        .city-image-fade {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 45%;
+            background: linear-gradient(transparent, var(--paper));
+        }
+        .city-flag-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-size: 2.2rem;
+            filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.25));
+            transform: rotate(6deg);
+        }
+        .city-body { padding: 1.5rem 1.75rem 1.75rem; }
+        .city-name-en {
+            font-family: 'Kalam', cursive;
+            font-size: 0.72rem;
+            color: var(--ink-faint);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+        .city-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .city-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .city-stats-row {
+            display: flex;
+            gap: 1rem;
+            padding-top: 0.9rem;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+        .city-stat { flex: 1; }
+        .city-stat-label {
+            font-size: 0.55rem;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 0.1rem;
+        }
+        .city-stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .city-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.1rem;
+            font-family: 'Kalam', cursive;
+            font-size: 0.82rem;
+            color: var(--accent);
+        }
+        .city-cta-arrow {
+            width: 16px; height: 16px;
+            transition: transform 0.3s ease;
+        }
+        .city-card:hover .city-cta-arrow { transform: translateX(5px); }
+
+        /* PRICING TABLE */
+        .pricing-section {
+            padding: 4rem 2rem;
+            background: var(--paper-dark);
+            border-top: 0.5px solid rgba(0,0,0,0.06);
+        }
+        .pricing-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .pricing-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+        .pricing-header p {
+            font-family: 'Kalam', cursive;
+            font-size: 0.85rem;
+            color: var(--ink-light);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+        .price-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 0.5px solid rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .price-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        .price-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+        }
+        .price-card-flag { font-size: 2rem; }
+        .price-card-city {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .price-card-country {
+            font-family: 'Kalam', cursive;
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .price-row:last-child { border-bottom: none; }
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--ink-light);
+        }
+        .price-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .price-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.25rem;
+            padding: 0.7rem;
+            background: var(--ink);
+            color: var(--cream);
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: 'Kalam', cursive;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+        .price-link:hover { background: var(--accent); }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(43, 43, 43, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-journal {
+            background: var(--paper);
+            width: 100%;
+            max-width: 860px;
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.35);
+            transform: translateY(28px) scale(0.93);
+            transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
+        }
+        .modal-overlay.active .modal-journal { transform: translateY(0) scale(1); }
+        .modal-journal::-webkit-scrollbar { width: 6px; }
+        .modal-journal::-webkit-scrollbar-track { background: var(--paper-dark); }
+        .modal-journal::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 3px; }
+        .modal-close {
+            position: absolute;
+            top: 1.25rem; right: 1.25rem;
+            width: 42px; height: 42px;
+            background: var(--cream);
+            border: 0.5px solid rgba(0,0,0,0.12);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--ink);
+        }
+        .modal-close:hover { background: var(--ink); color: var(--cream); transform: rotate(90deg); }
+        .modal-hero {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        .modal-hero img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-hero-veil {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 55%;
+            background: linear-gradient(transparent, rgba(244,237,228,0.97));
+        }
+        .modal-hero-text {
+            position: absolute;
+            bottom: 0; left: 0;
+            padding: 2.5rem 2rem 1.75rem;
+        }
+        .modal-flag { font-size: 3.5rem; display: block; margin-bottom: 0.4rem; }
+        .modal-city-name { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; line-height: 1; }
+        .modal-city-sub { font-family: 'Kalam', cursive; font-size: 0.9rem; color: var(--accent); margin-top: 0.4rem; }
+        .modal-body { padding: 2rem 2.25rem 2.5rem; }
+        .modal-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+        .modal-metric {
+            background: var(--cream);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            border: 0.5px solid rgba(0,0,0,0.06);
+        }
+        .modal-metric-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .modal-metric-label {
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-top: 0.2rem;
+        }
+        .modal-tabs {
+            display: flex;
+            gap: 0.3rem;
+            border-bottom: 0.5px solid rgba(0,0,0,0.08);
+            padding-bottom: 0.9rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        .modal-tab {
+            padding: 0.6rem 1.4rem;
+            background: transparent;
+            border: none;
+            font-family: 'Kalam', cursive;
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+        .modal-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -0.9rem; left: 0;
+            width: 100%; height: 1.5px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-tab.active { color: var(--ink); }
+        .modal-tab.active::after { transform: scaleX(1); }
+        .modal-tab:hover { color: var(--ink); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: tabReveal 0.4s ease; }
+        @keyframes tabReveal {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .day-block {
+            margin-bottom: 2.25rem;
+            padding-left: 1.75rem;
+            position: relative;
+        }
+        .day-block::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0.5rem;
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        .day-block::after {
+            content: '';
+            position: absolute;
+            left: 4px; top: 1.4rem;
+            width: 0.5px;
+            height: calc(100% - 0.9rem);
+            background: rgba(0,0,0,0.07);
+        }
+        .day-block:last-child::after { display: none; }
+        .day-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+        }
+        .day-item {
+            display: flex;
+            gap: 0.9rem;
+            margin-bottom: 0.5rem;
+            align-items: flex-start;
+        }
+        .day-time {
+            font-family: 'Kalam', cursive;
+            font-size: 0.8rem;
+            color: var(--accent);
+            min-width: 62px;
+            padding-top: 0.1rem;
+        }
+        .day-text { font-size: 0.9rem; color: var(--ink-light); line-height: 1.6; }
+        .food-section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.9rem;
+        }
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.65rem;
+        }
+        .food-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 0.75rem;
+            border: 0.5px solid rgba(0,0,0,0.04);
+        }
+        .food-emoji { font-size: 1.4rem; flex-shrink: 0; }
+        .food-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; }
+        .food-desc { font-size: 0.78rem; color: var(--ink-light); line-height: 1.4; }
+        .photo-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+        .photo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 0.9rem;
+            border: 0.5px solid rgba(0,0,0,0.04);
+        }
+        .photo-num {
+            width: 28px; height: 28px;
+            background: var(--ink);
+            color: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .photo-name { font-size: 0.85rem; color: var(--ink); line-height: 1.4; }
+        .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .notes-section h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.9rem;
+        }
+        .notes-section.yay h4 { color: var(--sage); }
+        .notes-section.consider h4 { color: var(--rose); }
+        .notes-list { list-style: none; }
+        .notes-list li {
+            padding: 0.45rem 0;
+            padding-left: 1.4rem;
+            position: relative;
+            font-size: 0.88rem;
+            color: var(--ink-light);
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+            line-height: 1.5;
+        }
+        .notes-list li:last-child { border-bottom: none; }
+        .notes-section.yay .notes-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sage); }
+        .notes-section.consider .notes-list li::before { content: '○'; position: absolute; left: 0; color: var(--rose); }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 0.5px solid rgba(0,0,0,0.06);
+        }
+        .footer-text { font-family: 'Homemade Apple', cursive; font-size: 0.82rem; color: var(--ink-faint); }
+        .footer-heart { color: var(--rose); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .cities-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 700px) {
+            .cities-grid { grid-template-columns: 1fr; }
+            .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+            .food-grid, .photo-list, .notes-grid { grid-template-columns: 1fr; }
+            .cover-dates { flex-direction: column; gap: 0.75rem; }
+            .cover-date-sep { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- COVER -->
+    <section class="hero">
+        <div class="cover">
+            <div class="cover-frame"></div>
+            <div class="cover-stamp">A journal for Lexie & Levi</div>
+            <h1 class="cover-title">European<br><em>Getaway</em></h1>
+            <p class="cover-byline">A curated travel journal</p>
+            <div class="cover-dates">
+                <div class="cover-date">
+                    <div class="cover-date-label">Departure</div>
+                    <div class="cover-date-value">April 17–22</div>
+                </div>
+                <div class="cover-date-sep">·</div>
+                <div class="cover-date">
+                    <div class="cover-date-label">Return</div>
+                    <div class="cover-date-value">5 or 4 Days</div>
+                </div>
+            </div>
+            <div class="cover-divider"></div>
+            <div class="cover-tags">
+                <span class="cover-tag">Art & Galleries</span>
+                <span class="cover-tag">Cafes & Coffee</span>
+                <span class="cover-tag">Architecture</span>
+                <span class="cover-tag">History</span>
+                <span class="cover-tag">Coast & Nature</span>
+                <span class="cover-tag">Local Markets</span>
+            </div>
+            <div class="cover-scroll">
+                <p class="cover-scroll-text">turn the page</p>
+                <svg class="cover-scroll-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION HEADER -->
+    <div class="section-header">
+        <div class="section-ornament">
+            <div class="section-line"></div>
+            <span class="section-icon">✦</span>
+            <div class="section-line"></div>
+        </div>
+        <h2 class="section-title">Seven Destinations</h2>
+        <p class="section-subtitle">click any card to open the journal</p>
+    </div>
+
+    <!-- CITIES GRID -->
+    <section class="cities-section">
+        <div class="cities-grid" id="citiesGrid"></div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing-section">
+        <div class="pricing-inner">
+            <div class="pricing-header">
+                <h2>Real Prices — April 17–22</h2>
+                <p>skyscanner.net & booking.com · Apr 16–27 · 5 days 4 nights</p>
+            </div>
+            <div class="pricing-grid" id="pricingGrid"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="footer-text">crafted with <span class="footer-heart">♥</span> for our adventure</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-journal">
+            <button class="modal-close" id="modalClose">×</button>
+            <div class="modal-hero">
+                <img id="modalImg" src="" alt="">
+                <div class="modal-hero-veil"></div>
+                <div class="modal-hero-text">
+                    <span class="modal-flag" id="modalFlag"></span>
+                    <h2 class="modal-city-name" id="modalCityName"></h2>
+                    <p class="modal-city-sub" id="modalSub"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-metrics" id="modalMetrics"></div>
+                <div class="modal-tabs">
+                    <button class="modal-tab active" data-tab="itinerary">Itinerary</button>
+                    <button class="modal-tab" data-tab="food">Food & Drink</button>
+                    <button class="modal-tab" data-tab="photos">Photo Spots</button>
+                    <button class="modal-tab" data-tab="notes">Notes</button>
+                </div>
+                <div class="tab-content active" id="tab-itinerary"></div>
+                <div class="tab-content" id="tab-food"></div>
+                <div class="tab-content" id="tab-photos"></div>
+                <div class="tab-content" id="tab-notes"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const cities = [
+        {
+            id: 'ljubljana',
+            name: 'Ljubljana',
+            nameLocal: 'Ljubljana, Slovenia',
+            flag: '🇸🇮',
+            tagline: 'Europe\'s hidden art capital',
+            img: 'https://images.unsplash.com/photo-1565010538487-4c1c8e8c5a9e?w=1200&q=80',
+            stats: { flight: '£45–90', hotel: '£200–320', daily: '£50–90', total: '£480–750' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Arrive in Ljubljana, check into the old town along the Ljubljanica River' },
+                    { time: 'Evening', text: 'Stroll along the river embankments, find a riverside café' },
+                    { time: 'Dinner', text: 'Traditional Slovene dishes at a gostilna — jota stew, potato stew' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Cobbler\'s Bridge (Špice) — Ljubljana\'s most iconic bridge, cafés lining both sides' },
+                    { time: 'Morning', text: 'Central Market and Plečnik\'s architectural wonders' },
+                    { time: 'Afternoon', text: 'National Gallery and the Museum of Contemporary Art Metelkova' },
+                    { time: 'Evening', text: 'Funicular to Ljubljana Castle for golden hour city views' }
+                ]},
+                { day: 'Day 3 — Lake Bled Day Trip', items: [
+                    { time: 'Morning', text: 'Bus to Lake Bled (1 hour) — one of Europe\'s most photographed alpine lakes' },
+                    { time: 'Morning', text: 'Row to Bled Island, ring the church bell for good luck' },
+                    { time: 'Lunch', text: 'Bled cream cake (kremšnita) by the lake — a must' },
+                    { time: 'Afternoon', text: 'Bled Castle on the cliff, lakeside walk' },
+                    { time: 'Evening', text: 'Return to Ljubljana, riverside dinner' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'Metelkova — colourful former army barracks turned art galleries and underground clubs' },
+                    { time: 'Late Morning', text: 'Tivoli Park — the city\'s largest green space, great for a relaxed walk' },
+                    { time: 'Afternoon', text: 'Café hopping: Dvorec (art nouveau), Nebotičnik (penthouse with views), or Čajnica (tea house)' },
+                    { time: 'Evening', text: 'Prešeren Square, the city\'s artistic heart, more riverside wandering' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Last walk through the old town, browse local art shops' },
+                    { time: 'Morning', text: 'Café breakfast — Ljubljana\'s coffee culture rivals Vienna\'s' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🍰', name: 'Kremšnita', desc: 'Bled cream cake — layered pastry with vanilla cream, legendary since 1950' },
+                { icon: '☕', name: 'Ljubljana Coffee', desc: 'Countless independent roasters, café culture deeply embedded in daily life' },
+                { icon: '🥩', name: 'Jota', desc: 'Traditional Slovene stew with beans, sauerkraut and pork' },
+                { icon: '🍷', name: 'Slovenian Wine', desc: 'Little-known but excellent — especially the coastal region whites and reds' },
+                { icon: '🥐', name: 'Gibanica', desc: 'Layered pastry with poppy seeds, walnuts and apples, very local' },
+                { icon: '🍖', name: 'Gostilna', desc: 'Traditional family-run restaurant, authentic and great value' }
+            ],
+            photos: [
+                "Cobbler's Bridge over Ljubljanica River",
+                'Ljubljana Castle at sunset',
+                'Lake Bled with its island church',
+                'Bled Castle perched on a cliff',
+                "Metelkova's colourful art village",
+                'Tivoli Park\'s tree-lined avenues'
+            ],
+            pros: ['Slovenia is Europe\'s most underrated gem', 'Coffee culture is exceptional', 'Great galleries and art spaces', 'Lake Bled day trip is extraordinary', 'Walkable, traffic-free city centre', 'Extremely safe', 'English widely spoken'],
+            cons: ['Smaller airport, fewer flight options', 'Weather unpredictable in April', 'Lake Bled can get busy']
+        },
+        {
+            id: 'sarajevo',
+            name: 'Sarajevo',
+            nameLocal: 'Sarajevo, Bosnia & Herzegovina',
+            flag: '🇧🇦',
+            tagline: 'Where east meets west, raw and real',
+            img: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=1200&q=80',
+            stats: { flight: '£50–100', hotel: '£120–200', daily: '£35–65', total: '£350–550' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Arrive Sarajevo, check into Baščaršija old town — the Ottoman heart of the city' },
+                    { time: 'Evening', text: 'Walk through Baščaršija, hear the call to prayer, feel the layered history' },
+                    { time: 'Dinner', text: 'Try čevapi — Bosnian grilled minced meat, at a traditional aščinica' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Gazi Husrev-beg Mosque — the most important Ottoman monument in Bosnia' },
+                    { time: 'Morning', text: 'Berek Clock Tower and the old bazaar, copper-smith workshops still active' },
+                    { time: 'Afternoon', text: 'Latin Bridge — the site of Archduke Franz Ferdinand\'s assassination, 1914' },
+                    { time: 'Evening', text: 'Sahat Kula (Clock Tower) area, sunset over the minarets' }
+                ]},
+                { day: 'Day 3', items: [
+                    { time: 'Morning', text: 'Srebrenica Memorial — a profoundly moving historical experience' },
+                    { time: 'Afternoon', text: 'Trebević Mountain — take the cable car for panoramic views over the city' },
+                    { time: 'Evening', text: 'Explore the Austro-Hungarian quarters, elegant architecture from 1878–1918' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'War Childhood Museum — a unique and personal perspective on the siege' },
+                    { time: 'Late Morning', text: 'Skakavac Waterfall hike — 30 min from city centre, spectacular' },
+                    { time: 'Afternoon', text: 'Coffee ceremony — Bosnian coffee is a ritual, served with Turkish delight and rahatlokum' },
+                    { time: 'Evening', text: 'Baščaršija by night, live sevdalinka folk music in traditional taverns' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Last walk through the old bazaar, buy copper crafts or Bosnian lace' },
+                    { time: 'Morning', text: 'Burek at a local buregdžinica — flaky pastry filled with meat, cheese or spinach' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🥙', name: 'Čevapi', desc: 'Bosnian grilled minced meat in somun bread — national dish, £2-4' },
+                { icon: '☕', name: 'Bosnian Coffee', desc: ' thick Turkish-style coffee, served with chocolate, a true ritual' },
+                { icon: '🥧', name: 'Burek', desc: 'Flaky phyllo pastry with meat, cheese or spinach, £1.50 per slice' },
+                { icon: '🍖', name: 'Lamb under sač', desc: 'Lamb slow-cooked under a metal lid with embers, incredibly tender' },
+                { icon: '🍷', name: 'Živska / Blatina', desc: 'Bosnian wines from native grapes, robust reds, very underrated' },
+                { icon: '🍬', name: 'Rahatlokum', desc: 'Turkish delight served with Bosnian coffee, try the rose or pistachio' }
+            ],
+            photos: [
+                'Baščaršija mosque silhouettes at dusk',
+                'Gazi Husrev-beg Mosque courtyard',
+                'Latin Bridge, 1914 assassination site',
+                'Trebević Mountain cable car views',
+                'War Childhood Museum exterior',
+                'Sahat Kula Clock Tower at night'
+            ],
+            pros: ['Most authentic destination — truly off the beaten path', 'Extraordinarily cheap — £35/day food & transport', 'Layered Ottoman + Austro-Hungarian history everywhere', 'Coffee culture is deeply atmospheric', 'Mountains in the background, beautiful setting', 'People are incredibly warm and welcoming'],
+            cons: ['Tense political climate', 'Some areas still show war scars', 'Not a beach destination', 'Limited English outside tourist areas']
+        },
+        {
+            id: 'lisbon',
+            name: 'Lisbon',
+            nameLocal: 'Lisboa, Portugal',
+            flag: '🇵🇹',
+            tagline: 'Europe\'s most affordable coastal gem',
+            img: 'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=1200&q=80',
+            stats: { flight: '£35–80', hotel: '£200–350', daily: '£60–100', total: '£500–800' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Arrive in Lisbon, check into Alfama Old Town' },
+                    { time: 'Evening', text: 'Miradouro da Graça for sweeping sunset views' },
+                    { time: 'Dinner', text: 'Authentic Bacalhau at a local tasca' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Tram 28 through the old quarters, photograph Azulejo tile facades' },
+                    { time: 'Afternoon', text: 'Belém: Torre de Belém and Padrão dos Descobrimentos' },
+                    { time: 'Late Afternoon', text: 'Taste Pastéis de Belém — the world\'s most famous custard tarts, £1 each' },
+                    { time: 'Evening', text: 'Praça do Comércio waterfront' }
+                ]},
+                { day: 'Day 3 — Sintra Day Trip', items: [
+                    { time: 'Morning', text: 'Train to Sintra (30 min), visit Pena Palace — technicolor fairytale castle' },
+                    { time: 'Morning', text: 'Explore Quinta da Regaleira — secret gardens and Initiation Well' },
+                    { time: 'Afternoon', text: 'Wander Sintra\'s historic centre' },
+                    { time: 'Evening', text: 'Fado music in Alfama — the soul of Portuguese melancholia' }
+                ]},
+                { day: 'Day 4 — Cascais Coast', items: [
+                    { time: 'Morning', text: 'Train to Cascais (40 min), coastal path to Boca do Inferno' },
+                    { time: 'Lunch', text: 'Fresh seafood, £8-15 per person' },
+                    { time: 'Afternoon', text: 'Cabo da Roca — Europe\'s westernmost point' },
+                    { time: 'Evening', text: 'Miradouro da Graça for night views' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'LX Factory weekend market — art, design, vintage' },
+                    { time: 'Breakfast', text: 'Time Out Market for Portuguese street food' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🥮', name: 'Pastéis de Belém', desc: 'World-famous custard tarts, straight from the oven, £1 each' },
+                { icon: '🐟', name: 'Bacalhau', desc: 'Portugal\'s beloved salted cod, a thousand preparations' },
+                { icon: '🍒', name: 'Ginja', desc: 'Cherry brandy in chocolate cups, £2-3' },
+                { icon: '🥣', name: 'Caldo Verde', desc: 'Portuguese kale soup with chouriço' },
+                { icon: '🦐', name: 'Time Out Market', desc: 'Lively food hall with the best of Lisbon' },
+                { icon: '☕', name: 'Café de Nata', desc: 'Espresso and pastéis de nata at a century-old café' }
+            ],
+            photos: [
+                'Tram 28 through Alfama\'s narrow lanes',
+                'Belém Tower at golden hour',
+                'Pena Palace in Sintra',
+                'Cascais coastal cliffs at Boca do Inferno',
+                'Azulejo blue tile walls everywhere',
+                'Miradouro da Graça sunset panorama'
+            ],
+            pros: ['Cheap flights from London', 'Superb April weather (15-25°C)', 'Excellent metro and tram system', 'Beautiful beach day trip nearby', 'Pastéis de nata costs just £1', 'Azulejo tiles are endlessly photogenic'],
+            cons: ['Gets crowded after Easter', 'Airport 45 min from city by train', 'Very hilly — stairs hard with luggage']
+        },
+        {
+            id: 'naples',
+            name: 'Naples',
+            nameLocal: 'Napoli, Italy',
+            flag: '🇮🇹',
+            tagline: 'Where pizza became an art form',
+            img: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=1200&q=80',
+            stats: { flight: '£50–100', hotel: '£250–400', daily: '£50–90', total: '£450–750' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Check into Spaccanapoli old town — the heart of Naples' },
+                    { time: 'Evening', text: 'Walk Spaccanapoli main street, alive with ancient energy' },
+                    { time: 'Dinner', text: 'First Neapolitan pizza at L\'Antica Pizzeria da Michele' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Catacombe di San Gennaro — underground burial chambers' },
+                    { time: 'Afternoon', text: 'Piazza Dante, Via Toledo, San Lorenzo Maggiore' },
+                    { time: 'Evening', text: 'Seafront promenade, Mt. Vesuvius sunset' }
+                ]},
+                { day: 'Day 3 — Pompeii Day Trip', items: [
+                    { time: 'Morning', text: 'Circumvesuviana train to Pompeii (30 min)' },
+                    { time: 'Morning', text: 'Explore the ruins frozen in time since 79 AD' },
+                    { time: 'Afternoon', text: 'Return, rest or explore' },
+                    { time: 'Dinner', text: 'One final pizza — you\'ll miss it back home' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'Mercato di Pignasecca — vibrant local market' },
+                    { time: 'Lunch', text: 'Street food: sfogliatella, supplì, tarallo — £1-2 each' },
+                    { time: 'Afternoon', text: 'Optional ferry to Capri — Blue Grotto, dramatic coast' },
+                    { time: 'Evening', text: 'Historic café, espresso with a view of the bay' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Museo Archeologico Nazionale — world-class Greek & Roman artifacts' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🍕', name: 'Pizza Margherita', desc: 'The original Neapolitan pizza — £3-8 per pie, extraordinary' },
+                { icon: '🥐', name: 'Sfogliatella', desc: 'Flaky pastry with ricotta, warm from the oven, £1' },
+                { icon: '🍚', name: 'Supplì', desc: 'Fried risotto balls with mozzarella, £1.50 each' },
+                { icon: '🍋', name: 'Limoncello', desc: 'Lemon liqueur from Sorrento coast, £3-5 per glass' },
+                { icon: '🍝', name: 'Ragu alla Napoletana', desc: 'Slow-simmered meat sauce, hearty and rustic' },
+                { icon: '🐟', name: 'Mercato di Pignasecca', desc: 'Ultra-fresh local seafood and produce' }
+            ],
+            photos: [
+                'Mt. Vesuvius dominating the bay',
+                'Spaccanapoli\'s impossibly narrow lanes',
+                'Pompeii\'s ancient forum frozen in time',
+                'Street-side pizza oven in action',
+                'Capri\'s iconic Blue Grotto',
+                'Naples waterfront at blue hour'
+            ],
+            pros: ['Birthplace of pizza — and it\'s extraordinary', 'One of Europe\'s most affordable major cities', 'Ferry to Capri and Amalfi Coast', 'Pompeii ruins are 30 minutes away', 'Cheap local transport throughout'],
+            cons: ['Pickpocketing is common', 'Gritty old town not for everyone', 'Can be very hot in summer', 'Airport is 1 hour from city by train']
+        },
+        {
+            id: 'lyon',
+            name: 'Lyon',
+            nameLocal: 'Lyon, France',
+            flag: '🇫🇷',
+            tagline: 'France\'s undiscovered art & culinary capital',
+            img: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1200&q=80',
+            stats: { flight: '£70–120', hotel: '£280–400', daily: '£70–120', total: '£600–900' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Check into Vieux-Lyon — UNESCO World Heritage Renaissance district' },
+                    { time: 'Evening', text: 'Discover traboules — hidden passageways through buildings, unique to Lyon' },
+                    { time: 'Dinner', text: 'Coq au vin and quenelles at a traditional bouchon' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Fourvière Hill: Roman amphitheatre and Notre-Dame Basilica' },
+                    { time: 'Afternoon', text: 'Croix-Rousse district — old silk workers\' neighbourhood, frescoed walls' },
+                    { time: 'Evening', text: 'Funicular to Fourvière summit, golden hour over the city' }
+                ]},
+                { day: 'Day 3 — Burgundy Wine Country', items: [
+                    { time: 'Morning', text: 'Train to Beaune (1.5 hours) — heart of Burgundy' },
+                    { time: 'Morning', text: 'Wine tasting workshop, learn Pinot Noir and Chardonnay' },
+                    { time: 'Afternoon', text: 'Visit family domaines, taste Grand Cru wines' },
+                    { time: 'Evening', text: 'Return to Lyon, possibly with a bottle or two' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'Les Halles de Paul Bocuse — France\'s most prestigious food market' },
+                    { time: 'Afternoon', text: 'Presqu\'île district: shopping, riverside architecture' },
+                    { time: 'Dinner', text: 'Michelin-starred experience — Lyon is France\'s food capital' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Final walk through Croix-Rousse, last café au lait' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🍷', name: 'Coq au Vin', desc: 'Chicken braised in red wine — the Burgundian classic' },
+                { icon: '🥟', name: 'Quenelles', desc: 'Light fish dumplings in Nantua sauce, uniquely Lyonnais' },
+                { icon: '🍷', name: 'Beaune Pinot Noir', desc: 'World-class Burgundy, £10-20 per glass in wine bars' },
+                { icon: '🥗', name: 'Salade Lyonnaise', desc: 'Frisée lettuce with crispy lardons and poached egg' },
+                { icon: '🍰', name: 'Tarte Praluline', desc: 'Lyon\'s signature — pink praline on buttery tart' },
+                { icon: '☕', name: 'Bouchon Lyonnais', desc: 'Traditional low-key bistro, the soul of Lyonnais dining' }
+            ],
+            photos: [
+                "Vieux-Lyon's Renaissance facades at dusk",
+                'Fourvière Basilica overlooking the city',
+                'Traboules secret passageways',
+                'Les Halles de Paul Bocuse market',
+                "Presqu'île riverside at sunset",
+                "Beaune's vineyard rows in morning mist"
+            ],
+            pros: ["France's undisputed gastronomic capital", 'Unique traboules — no other city has them', 'Wine prices are excellent', 'Compact and walkable', 'UNESCO World Heritage old town'],
+            cons: ['Most expensive of the seven', 'French language barrier is real', 'Restaurants don\'t serve dinner until 8pm', 'April weather can be wet and grey']
+        },
+        {
+            id: 'athens',
+            name: 'Athens',
+            nameLocal: 'Athens & Meteora, Greece',
+            flag: '🇬🇷',
+            tagline: 'Ancient civilisation meets dramatic cliff monasteries',
+            img: 'https://images.unsplash.com/photo-1555993539-1732b0258235?w=1200&q=80',
+            stats: { flight: '£50–100', hotel: '£200–350', daily: '£55–95', total: '£500–800' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Arrive Athens, check into Plaka old town — the oldest neighbourhood' },
+                    { time: 'Evening', text: 'Walk through Anafiotika — a tiny Cycladic island village hidden in the city centre' },
+                    { time: 'Dinner', text: 'Greek mezze in Plaka: tatziki, spanakopita, Greek salad with real feta' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Acropolis at opening time — the Parthenon, Erechtheion with the Caryatids' },
+                    { time: 'Late Morning', text: 'Acropolis Museum — extraordinary modern building with ancient treasures' },
+                    { time: 'Afternoon', text: 'Ancient Agora, Temple of Hephaestus — the best-preserved ancient temple' },
+                    { time: 'Evening', text: 'Monastiraki Square, sunset view of the Acropolis from Hadrian\'s Library' }
+                ]},
+                { day: 'Day 3 — Meteora Day Trip', items: [
+                    { time: 'Morning', text: 'Flight or train to Kalambaka (4 hours by train via Palaiofarsalos)' },
+                    { time: 'Morning', text: 'Visit Great Meteoro monastery — perched atop giant sandstone pillars' },
+                    { time: 'Afternoon', text: 'Varlaam and Rousanou monasteries — the views are otherworldly' },
+                    { time: 'Evening', text: 'Return to Athens (or stay overnight in Kalambaka)' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'National Archaeological Museum — world-class ancient Greek collection' },
+                    { time: 'Afternoon', text: 'Keramikos ancient cemetery and its museum' },
+                    { time: 'Evening', text: 'Café in Psyrri district — Athens\'s creative quarter, excellent coffee culture' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Last walk through Plaka, browse pottery workshops and art galleries' },
+                    { time: 'Morning', text: 'Greek coffee at a kafeneio, people-watching in the square' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🫙', name: 'Mezze Selection', desc: 'Tatziki, melitzanosalata, spanakopita, olIVER, tzatziki — sharing plates, very social' },
+                { icon: '🥗', name: 'Greek Salad', desc: 'Tomatoes, cucumber, olives, real feta on top, £6-10 in restaurants' },
+                { icon: '🍖', name: 'Souvlaki & Gyros', desc: 'Grilled meat on skewers or in pita bread, the ultimate street food, £2-5' },
+                { icon: '☕', name: 'Greek Coffee', desc: 'Thick, strong coffee in a briki, served in a small cup with Greek Delight' },
+                { icon: '🍯', name: 'Loukoumades', desc: 'Deep-fried dough balls drizzled with honey and cinnamon — ancient Greek dessert' },
+                { icon: '🍷', name: 'Agiorgitiko / Assyrtiko', desc: 'Greek wines from Nemea and Santorini — excellent and affordable' }
+            ],
+            photos: [
+                'The Parthenon atop the Acropolis',
+                'Acropolis at golden hour',
+                'Meteora monasteries on cliff pillars',
+                'Meteora at sunset with the pillars',
+                'Plaka old town narrow streets',
+                'Ancient Agora with Caryatids'
+            ],
+            pros: ['Acropolis and ancient history are unmatched', 'Meteora is one of the most extraordinary places on Earth', 'Greek food is outstanding and affordable', 'Plaka neighbourhood is charming and artistic', 'Excellent coffee culture in Psyrri'],
+            cons: ['Meteora requires a long day trip or overnight', 'Acropolis can be crowded — go early', 'Athens has traffic and is not a natural beauty city', 'Summer heat can be intense, April is perfect']
+        },
+        {
+            id: 'porto',
+            name: 'Porto',
+            nameLocal: 'Porto, Portugal',
+            flag: '🇵🇹',
+            tagline: 'Port wine, riverside poetry & blue tiles',
+            img: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=80',
+            stats: { flight: '£40–80', hotel: '£180–300', daily: '£50–90', total: '£450–700' },
+            itinerary: [
+                { day: 'Day 1 — Arrival', items: [
+                    { time: 'Afternoon', text: 'Check into Ribeira — UNESCO historic riverfront district' },
+                    { time: 'Evening', text: 'Stroll the Douro riverbank, watch the traditional Rabelo boats' },
+                    { time: 'Dinner', text: 'Fresh Portuguese seafood at a candlelit riverside restaurant' }
+                ]},
+                { day: 'Day 2', items: [
+                    { time: 'Morning', text: 'Livraria Lello — ranked among the world\'s most beautiful bookshops' },
+                    { time: 'Afternoon', text: 'Clérigos Tower climb — 240 steps for 360° city views' },
+                    { time: 'Evening', text: 'Port wine tasting at a lodge in Vila Nova de Gaia (£5-15 per glass)' }
+                ]},
+                { day: 'Day 3 — Douro Valley', items: [
+                    { time: 'Morning', text: 'Train through the Douro Valley to Pinhão (1.5 hours)' },
+                    { time: 'Morning', text: 'Cruise the Douro on a Rabelo boat between terraced vineyards' },
+                    { time: 'Afternoon', text: 'Visit quintas (wine estates), taste Tawny, Vintage and White Port' }
+                ]},
+                { day: 'Day 4', items: [
+                    { time: 'Morning', text: 'Mercado do Bolhão — grand historic covered market, sensory overload' },
+                    { time: 'Afternoon', text: 'Tram to Matosinhos beach, Atlantic promenade' },
+                    { time: 'Evening', text: 'São Bento Station — extraordinary blue-and-white tile panels' }
+                ]},
+                { day: 'Day 5 — Departure', items: [
+                    { time: 'Morning', text: 'Palácio da Bolsa — ornate Arabian-inspired stock exchange hall' },
+                    { time: 'Morning', text: 'Last pastel de nata at a riverside café' },
+                    { time: 'Afternoon', text: 'Fly home' }
+                ]}
+            ],
+            food: [
+                { icon: '🥪', name: 'Francesinha', desc: 'Legendary triple-decker sandwich with beer sauce, £8-12' },
+                { icon: '🍷', name: 'Port Wine', desc: 'Vintage, Tawny or White — tastings from £5 per glass' },
+                { icon: '🥮', name: 'Pastéis de Nata', desc: 'Portuguese custard tarts, £1 each' },
+                { icon: '🐟', name: 'Bacalhau à Gomes de Amor', desc: 'Portuguese cod in countless preparations' },
+                { icon: '☕', name: 'Magestic Café', desc: 'One of the world\'s most ornate cafés, opened 1894' },
+                { icon: '🍳', name: 'Tripas à Moda do Porto', desc: 'Porto\'s signature tripe stew — traditional' }
+            ],
+            photos: [
+                "Livraria Lello's legendary staircase",
+                'Rabelo boats on the Douro River',
+                'Blue and white Azulejo tile panels',
+                'Douro Valley terraced vineyards from above',
+                'São Bento station hall in blue tiles',
+                'Ribeira waterfront at golden hour'
+            ],
+            pros: ['Port wine is exceptional and affordable', "One of the world's most beautiful bookshops", 'Low accommodation cost', 'Blue tile art everywhere — endlessly photogenic', 'Chill riverside atmosphere'],
+            cons: ['Rainy season in April', 'Tourist areas are overpriced', 'Atlantic beach quality is modest']
+        }
+    ];
+
+    // Render city cards
+    const grid = document.getElementById('citiesGrid');
+    cities.forEach(city => {
+        const card = document.createElement('div');
+        card.className = 'city-card';
+        card.onclick = () => openModal(city);
+        card.innerHTML = `
+            <div class="city-card-inner-border"></div>
+            <div class="city-image-wrap">
+                <img class="city-image" src="${city.img}" alt="${city.name}">
+                <div class="city-image-fade"></div>
+                <div class="city-flag-badge">${city.flag}</div>
+            </div>
+            <div class="city-body">
+                <div class="city-name-en">${city.nameLocal}</div>
+                <h3 class="city-name">${city.name}</h3>
+                <p class="city-tagline">${city.tagline}</p>
+                <div class="city-stats-row">
+                    <div class="city-stat">
+                        <div class="city-stat-label">Flights</div>
+                        <div class="city-stat-value">${city.stats.flight}</div>
+                    </div>
+                    <div class="city-stat">
+                        <div class="city-stat-label">Total PP</div>
+                        <div class="city-stat-value">${city.stats.total}</div>
+                    </div>
+                    <div class="city-stat">
+                        <div class="city-stat-label">Per Day</div>
+                        <div class="city-stat-value">${city.stats.daily}</div>
+                    </div>
+                </div>
+                <div class="city-cta">
+                    <span>open journal</span>
+                    <svg class="city-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    // Pricing cards
+    const pricingGrid = document.getElementById('pricingGrid');
+    const pricingData = [
+        { city: 'Ljubljana', country: 'Slovenia', flag: '🇸🇮', flight: '£45–90', hotel: '£50–80/nt', total: '£200–320', food: '£30–50', search: 'https://www.skyscanner.net/transport/flights/lcy/lju/250416/250422/' },
+        { city: 'Sarajevo', country: 'Bosnia & Herzegovina', flag: '🇧🇦', flight: '£50–100', hotel: '£30–50/nt', total: '£120–200', food: '£20–35', search: 'https://www.skyscanner.net/transport/flights/lcy/sjj/250416/250422/' },
+        { city: 'Lisbon', country: 'Portugal', flag: '🇵🇹', flight: '£35–80', hotel: '£50–90/nt', total: '£200–350', food: '£35–60', search: 'https://www.skyscanner.net/transport/flights/lcy/lis/250416/250422/' },
+        { city: 'Naples', country: 'Italy', flag: '🇮🇹', flight: '£50–100', hotel: '£65–100/nt', total: '£250–400', food: '£30–55', search: 'https://www.skyscanner.net/transport/flights/lcy/nap/250416/250422/' },
+        { city: 'Lyon', country: 'France', flag: '🇫🇷', flight: '£70–120', hotel: '£70–100/nt', total: '£280–400', food: '£45–75', search: 'https://www.skyscanner.net/transport/flights/lcy/lys/250416/250422/' },
+        { city: 'Athens', country: 'Greece', flag: '🇬🇷', flight: '£50–100', hotel: '£50–90/nt', total: '£200–350', food: '£30–55', search: 'https://www.skyscanner.net/transport/flights/lcy/ath/250416/250422/' },
+        { city: 'Porto', country: 'Portugal', flag: '🇵🇹', flight: '£40–80', hotel: '£45–75/nt', total: '£180–300', food: '£30–50', search: 'https://www.skyscanner.net/transport/flights/lcy/opo/250416/250422/' },
+    ];
+
+    pricingData.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'price-card';
+        card.innerHTML = `
+            <div class="price-card-header">
+                <span class="price-card-flag">${p.flag}</span>
+                <div>
+                    <div class="price-card-city">${p.city}</div>
+                    <div class="price-card-country">${p.country}</div>
+                </div>
+            </div>
+            <div class="price-row">
+                <span class="price-label">✈️ Return flights</span>
+                <span class="price-value">${p.flight}</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">🏨 4 nights hotel</span>
+                <span class="price-value">${p.total}</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">🍽️ Daily food</span>
+                <span class="price-value">${p.food}</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">📊 Est. total PP</span>
+                <span class="price-value">${p.total.split('–')[0]}–${p.total.split('–')[1] ? p.total.split('–')[1] : p.total}</span>
+            </div>
+            <a href="${p.search}" target="_blank" class="price-link">Search real prices →</a>
+        `;
+        pricingGrid.appendChild(card);
+    });
+
+    // Modal
+    const modalOverlay = document.getElementById('modalOverlay');
+    document.getElementById('modalClose').onclick = () => { modalOverlay.classList.remove('active'); document.body.style.overflow = ''; };
+    modalOverlay.onclick = e => { if (e.target === modalOverlay) { modalOverlay.classList.remove('active'); document.body.style.overflow = ''; } };
+
+    function openModal(city) {
+        document.getElementById('modalImg').src = city.img;
+        document.getElementById('modalFlag').textContent = city.flag;
+        document.getElementById('modalCityName').textContent = city.name;
+        document.getElementById('modalSub').textContent = city.nameLocal + ' — ' + city.tagline;
+        document.getElementById('modalMetrics').innerHTML = `
+            <div class="modal-metric"><div class="modal-metric-value">${city.stats.flight}</div><div class="modal-metric-label">Return Flight</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">${city.stats.hotel}</div><div class="modal-metric-label">4 Nights</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">${city.stats.daily}</div><div class="modal-metric-label">Daily Budget</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">${city.stats.total}</div><div class="modal-metric-label">Total PP</div></div>
+        `;
+        document.getElementById('tab-itinerary').innerHTML = city.itinerary.map(d => `
+            <div class="day-block"><h4 class="day-title">${d.day}</h4>
+            ${d.items.map(i => `<div class="day-item"><span class="day-time">${i.time}</span><span class="day-text">${i.text}</span></div>`).join('')}
+            </div>`).join('');
+        document.getElementById('tab-food').innerHTML = `<h3 class="food-section-title">Must-Try Food & Drink</h3><div class="food-grid">${city.food.map(f => `<div class="food-item"><span class="food-emoji">${f.icon}</span><div><div class="food-name">${f.name}</div><div class="food-desc">${f.desc}</div></div></div>`).join('')}</div>`;
+        document.getElementById('tab-photos').innerHTML = `<div class="photo-list">${city.photos.map((p,i) => `<div class="photo-item"><span class="photo-num">${i+1}</span><span class="photo-name">${p}</span></div>`).join('')}</div>`;
+        document.getElementById('tab-notes').innerHTML = `<div class="notes-grid"><div class="notes-section yay"><h4>The Good</h4><ul class="notes-list">${city.pros.map(p => `<li>${p}</li>`).join('')}</ul></div><div class="notes-section consider"><h4>To Consider</h4><ul class="notes-list">${city.cons.map(c => `<li>${c}</li>`).join('')}</ul></div></div>`;
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.querySelectorAll('.modal-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+        document.querySelectorAll('.tab-content').forEach((c,i) => c.classList.toggle('active', i===0));
+    }
+
+    document.querySelectorAll('.modal-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const name = tab.dataset.tab;
+            document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('tab-' + name).classList.add('active');
+        });
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { modalOverlay.classList.remove('active'); document.body.style.overflow = ''; } });
+    </script>
+</body>
+</html>
